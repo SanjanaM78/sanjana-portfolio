@@ -1,0 +1,92 @@
+"use client";
+
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
+
+import { AnimatedSection } from "@/components/common/animated-section";
+import { Icons } from "@/components/common/icons";
+import { Button } from "@/components/ui/button";
+import { ExperienceInterface } from "@/config/experience";
+
+interface TimelineProps {
+  experiences: ExperienceInterface[];
+}
+
+const Timeline: React.FC<TimelineProps> = ({ experiences }) => {
+  return (
+    <div className="space-y-4">
+      {experiences.map((experience, index) => (
+        <AnimatedSection
+          key={experience.id}
+          delay={0.1 * (index + 1)}
+          direction="up"
+        >
+          <div className="w-full p-4 sm:p-6 bg-background border border-border rounded-lg transition-all duration-300">
+            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+              <div className="flex items-start gap-4 flex-1 min-w-0">
+                {experience.logo && (
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-lg border border-border overflow-hidden bg-white flex-shrink-0">
+                    <Image
+                      src={experience.logo}
+                      alt={experience.company}
+                      width={64}
+                      height={64}
+                      className="w-full h-full object-contain p-2"
+                    />
+                  </div>
+                )}
+
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-lg sm:text-xl font-bold text-foreground">
+                    {experience.position}
+                  </h3>
+
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-sm font-medium text-muted-foreground">
+                      {experience.company}
+                    </span>
+
+                    {experience.companyUrl && (
+                      <a
+                        href={experience.companyUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-muted-foreground hover:text-foreground transition-colors"
+                      >
+                        <Icons.externalLink className="w-4 h-4" />
+                      </a>
+                    )}
+                  </div>
+
+                  <p className="text-sm text-muted-foreground mb-2">
+                    {experience.location}
+                  </p>
+
+                  <p className="text-sm text-muted-foreground line-clamp-2">
+                    {experience.description[0]}
+                  </p>
+                </div>
+              </div>
+
+              <Button
+                variant="outline"
+                size="sm"
+                className="rounded-lg w-full sm:w-auto"
+                asChild
+              >
+                <Link href={`/experience/${experience.id}`}>
+                  View Details
+                  <Icons.chevronRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </AnimatedSection>
+      ))}
+    </div>
+  );
+};
+
+export default Timeline;
+
