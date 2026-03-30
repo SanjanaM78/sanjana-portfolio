@@ -106,12 +106,13 @@ export default function IndexPage() {
           <div className="flex flex-col mt-10 items-center justify-center sm:flex-row sm:space-x-4 gap-3">
             <AnimatedText delay={0.6}>
               <Link
-                href={"/resume"}
+                href="/resume.pdf"
                 target="_blank"
                 className={cn(buttonVariants({ size: "lg" }))}
               >
                 <Icons.post className="w-4 h-4 mr-2" /> Resume
               </Link>
+              
             </AnimatedText>
             <AnimatedText delay={0.8}>
               <Link
